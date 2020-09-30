@@ -1,0 +1,13 @@
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.exe
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.deps.json
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.runtimeconfig.json
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.runtimeconfig.dev.json
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.dll
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\CL-Knitting.pdb
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.csprojAssemblyReference.cache
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.AssemblyInfoInputs.cache
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.AssemblyInfo.cs
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.csproj.CoreCompileInputs.cache
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.dll
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.pdb
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.genruntimeconfig.cache

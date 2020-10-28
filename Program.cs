@@ -6,7 +6,7 @@ namespace CL_Knitting
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to Knitting Helper! What would you like help with today?");
         }
     }
 }

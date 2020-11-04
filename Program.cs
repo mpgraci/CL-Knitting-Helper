@@ -1,29 +1,56 @@
 ﻿using System;
 using System.IO;
 
-
 namespace CL_Knitting
 {
     class Program
     {
         static void Main(string[] args)
         {
-            //sample objects
-            Needles needle1 = new Needles()
-            {
-                size = 10,
-                type = "straight"
-            };
+            Console.WriteLine(@"
+            
+            ***Welcome to Knitting Helper!***");
+            bool showMenu = true;
+            while (showMenu){
+                showMenu = MainMenu();
+            }            
+        }
 
-            Yarn yarn1 = new Yarn()
-            {
-                color = "blue",
-                weight = "bulky",
-                length = 50
-            };
+        private static bool MainMenu(){
+            
+            Inventory Inv = new Inventory();
+            CalcGague Gauge = new CalcGague();   
+            string menuInput;
 
             //initial prompt
-            Console.WriteLine("Welcome to Knitting Helper! What would you like help with today? \n\n 1) Check inventory \n 2) Add to inventory \n 3) Check Guage");
+            Console.WriteLine(@"----------------------------
+            
+            Please select an option:
+                
+            1) Check inventory
+            2) Add to inventory
+            3) Check Guage
+            4) Exit");
+                           
+            menuInput = Console.ReadLine();              
+            switch (menuInput){
+
+                case "1": //display inventory
+                    Inv.Display();                    
+                    return true;
+                case "2": //add to inventory
+                    Inv.Add();
+                    return true;
+                case "3": //calcgauge
+                    Gauge.Calc();
+                    return true;
+                case "4": //exit
+                    Console.WriteLine("Goodbye!");
+                    return false;
+                default:
+                    Console.WriteLine("That wasn't a 1, 2 ,3 or 4...");
+                    return true;
+            }                        
         }
     }
 }

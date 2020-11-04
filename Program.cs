@@ -19,19 +19,23 @@ namespace CL_Knitting
         private static bool MainMenu(){
             
             Inventory Inv = new Inventory();
-            CalcGague Gauge = new CalcGague();   
-            string menuInput;
+            CalcGauge Calc  = new CalcGauge();
 
             //initial prompt
-            Console.WriteLine(@"----------------------------
-            
-            Please select an option:
+            Console.WriteLine(@"
+            ------------------------------            
+
+            Please select an option (1-4):
                 
             1) Check inventory
             2) Add to inventory
             3) Check Guage
-            4) Exit");
-                           
+            4) Exit
+            
+            ------------------------------
+            
+            ");
+            string menuInput;                           
             menuInput = Console.ReadLine();              
             switch (menuInput){
 
@@ -42,7 +46,7 @@ namespace CL_Knitting
                     Inv.Add();
                     return true;
                 case "3": //calcgauge
-                    Gauge.Calc();
+                    Calc.Prompt();
                     return true;
                 case "4": //exit
                     Console.WriteLine("Goodbye!");

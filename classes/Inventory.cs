@@ -12,16 +12,8 @@ public class Inventory {
 
     public void Display() {
 
-        Console.WriteLine("Displayed");
-        Console.WriteLine("1) Go Back");
+        Console.WriteLine("Displayed");        
 
-        string prompt = Console.ReadLine();
-        int a = Int32.Parse(prompt);
-        if (a == 1){
-            return;
-        }
-        else {
-            Console.WriteLine("It wasn't question, sending you back to the main menu");
-        }
+        return;        
     }
 }

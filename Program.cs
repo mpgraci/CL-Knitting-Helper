@@ -30,12 +30,12 @@ namespace CL_Knitting
             ------------------------------       
 
                   ***MAIN MENU***
-            Please select an option (1-4):
+            Please select an option:
                 
-            1) Check inventory
-            2) Add to inventory
-            3) Check Guage
-            4) Exit
+            1 - Check inventory
+            2 - Add to inventory
+            3 - Check Guage
+            0 - Exit
             
             ------------------------------
             
@@ -56,13 +56,13 @@ namespace CL_Knitting
                     Console.Clear();
                     Calc.Prompt();
                     return true;
-                case "4": //exit
+                case "0": //exit
                     Console.Clear();
                     Console.WriteLine("Goodbye!");
                     return false;
                 default:
                     Console.Clear();
-                    Console.WriteLine("That wasn't a 1, 2 ,3 or 4...");
+                    Console.WriteLine("That wasn't a 1, 2 ,3 or 0...");
                     return true;
             }                        
         }

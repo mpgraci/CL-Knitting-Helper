@@ -1,0 +1,33 @@
+{
+    "inventory": 
+        {
+            "needles": [
+            {
+                "id": 1,
+                "size": 9,
+                "type": "straight",
+                "material": "wood"
+            },
+            {
+                "id": 2,
+                "size": 5,
+                "type": "circular",
+                "material": "metal"
+            }
+            ],
+            "yarn": [
+                {
+                    "id": 1,
+                    "color": "red",
+                    "weight": "bulky",
+                    "length": 20
+                },
+                {
+                    "id": 2,
+                    "color": "blue",
+                    "weight": "light",
+                    "length": 30
+                }
+            ]
+        }
+}

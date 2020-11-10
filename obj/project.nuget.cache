@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Gg96Sd/AL04kStRK4Lm6sLmquVd0FZ7L0HYjI8lwcjKYmHwsYVwl8kBtgvY5GRyFtqQJ9+WUfMHdOQszS6hRXA==",
+  "dgSpecHash": "NywE6lAODues2ZUc4on/GLZEAVvL7eOW4iI2/i2vKNJnTXHK0Ab9J6XQxkC6wFoaqWVkrzFXIto4czXHbmkm2A==",
   "success": true,
   "projectFilePath": "C:\\Users\\mpgra\\CL-Knitting\\CL-Knitting.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mpgra\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -11,3 +11,5 @@ C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.csproj.CoreCompil
 C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.dll
 C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.pdb
 C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.genruntimeconfig.cache
+C:\Users\mpgra\CL-Knitting\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\mpgra\CL-Knitting\obj\Debug\netcoreapp3.1\CL-Knitting.csproj.CopyComplete

@@ -11,9 +11,11 @@ public class RootObject
 
 public class EditJson
 {
+    private static string jsonLocation = "data\\Inventory.json"; 
+
     public static bool ReadJson(string menuInput) 
     {        
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(@"data\testInventory.json"));
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));
 
         if (json != null)
         {
@@ -69,7 +71,7 @@ public class EditJson
     
     public static void WriteJson(double size, string type, string material)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(@"data\testInventory.json"));        
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
         int highestID = 0;
 
         foreach(var i in json.needles)
@@ -92,12 +94,12 @@ public class EditJson
 
         string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
 
-        File.WriteAllText(@"data\testInventory.json", json1);
+        File.WriteAllText(jsonLocation, json1);
     }
 
     public static void WriteJson(string color, string weight, double length)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(@"data\testInventory.json"));        
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
         
         int highestID = 0;
         foreach(var i in json.yarn)
@@ -124,12 +126,12 @@ public class EditJson
 
         string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
 
-        File.WriteAllText(@"data\testInventory.json", json1);
+        File.WriteAllText(jsonLocation, json1);
     }
 
     public static void DeleteJson(string menuInput, string id)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(@"data\testInventory.json"));        
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
         string json1 = "";
 
         switch (menuInput) 
@@ -146,7 +148,7 @@ public class EditJson
                 }
 
                 json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-                File.WriteAllText(@"data\testInventory.json", json1);
+                File.WriteAllText(jsonLocation, json1);
             return;                
 
             case "2":                
@@ -161,7 +163,7 @@ public class EditJson
                 }
 
                 json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-                File.WriteAllText(@"data\testInventory.json", json1);
+                File.WriteAllText(jsonLocation, json1);
                 return;                
         }        
     }

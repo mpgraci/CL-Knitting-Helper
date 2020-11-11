@@ -10,26 +10,59 @@ public class CalcGauge
 
     //patern info
     Console.WriteLine("According to the pattern, what is the finished LENGTH of the project in INCHES (ex: 24.5)?");
-    double fL = Convert.ToDouble(Console.ReadLine());
-
+    string fL = Console.ReadLine();
+    while (!double.TryParse(fL, out double result))
+    {
+        Console.WriteLine("Please enter a valid length in inches (10, 10.5, etc)");            
+        fL = Console.ReadLine();                
+    }
+  
     Console.WriteLine("According to the pattern, what is the finished WIDTH of the project in INCHES (ex: 24.5)?");
-    double fW = Convert.ToDouble(Console.ReadLine());
+    string fW = Console.ReadLine();
+    while (!double.TryParse(fW, out double result))
+    {
+        Console.WriteLine("Please enter a valid width in inches (10, 10.5, etc)");            
+        fW = Console.ReadLine();                
+    }    
 
     //4x4 swatch
     Console.WriteLine("Please make a 4\" x 4\" swatch using desired needles and yarn.");
     Console.WriteLine("");
     Console.WriteLine("How many stitches per row?");                               
-    int c = Convert.ToInt32(Console.ReadLine());
+    string c = Console.ReadLine();
+    while (!int.TryParse(c, out int result))
+    {
+        Console.WriteLine("Please enter a WHOLE NUMBER for # of stitches");            
+        c = Console.ReadLine();                
+    }    
     
     Console.WriteLine("How many rows?");
-    int r = Convert.ToInt32(Console.ReadLine());    
-
-    CalcGauge.Calc(c, r, fL, fW, out tS, out tR);
+    string r = Console.ReadLine();
+    while (!int.TryParse(r, out int result))
+    {
+        Console.WriteLine("Please enter a WHOLE NUMBER for # of rows");            
+        r = Console.ReadLine();                
+    }
+    
+    CalcGauge.Calc(Convert.ToInt32(c), Convert.ToInt32(r), Convert.ToDouble(fL), Convert.ToDouble(fW), out tS, out tR);
     Console.WriteLine(@"
     
     Your project should have " + Math.Ceiling(tS) + " stiches and " + Math.Ceiling(tR) + " rows.");
 
-    return;
+    Console.WriteLine("\nWould you like to calculate another gauge? (y/n)");
+    string again = Console.ReadLine();    
+    switch (again)
+    {
+        case "y":            
+            Prompt();
+            return;
+        case "n":
+            return;
+        default:
+            Console.WriteLine("\nThat wasn't a valid input. Press any key to return to main menu");      
+            Console.ReadKey();                          
+            return;
+    }
   }
 
   //c = stitches

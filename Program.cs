@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace CL_Knitting
 {
@@ -13,44 +12,45 @@ namespace CL_Knitting
 
             //loops menu
             bool showMenu = true;
-            while (showMenu){
+            while (showMenu)
+            {
                 showMenu = MainMenu();
             }           
         }
 
         //menu
-        private static bool MainMenu(){
-
+        private static bool MainMenu()
+        {
             Inventory Inv = new Inventory();
             CalcGauge Calc  = new CalcGauge();
             
             //initial prompt
             Console.Clear();
             Console.WriteLine(@"
-            ------------------------------       
+               ------------------------------       
 
-                  ***MAIN MENU***
-            Please select an option:
+                     ***MAIN MENU***
+               Please select an option:
                 
-            1 - Check inventory
-            2 - Add to inventory
-            3 - Check Guage
-            0 - Exit
+               1 - View inventory
+               2 - Edit inventory
+               3 - Check Guage
+               0 - Exit
             
-            ------------------------------
+             ------------------------------
             
             ");
             string menuInput;                           
             menuInput = Console.ReadLine();              
-            switch (menuInput){
-
+            switch (menuInput)
+            {
                 case "1": //display inventory
                     Console.Clear();
                     Inv.Display();                    
                     return true;
-                case "2": //add to inventory
+                case "2": //edit inventory
                     Console.Clear();
-                    Inv.Add();
+                    Inv.Edit();
                     return true;
                 case "3": //calcgauge
                     Console.Clear();
@@ -58,7 +58,7 @@ namespace CL_Knitting
                     return true;
                 case "0": //exit
                     Console.Clear();
-                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine("Goodbye!\n");
                     return false;
                 default:
                     Console.Clear();

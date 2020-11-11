@@ -2,7 +2,8 @@ using System;
 
 public class CalcGauge
 {
-  public void Prompt(){
+  public void Prompt()
+  {
     
     double tS = 0;
     double tR = 0;

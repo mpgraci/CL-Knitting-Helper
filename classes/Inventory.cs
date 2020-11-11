@@ -135,17 +135,24 @@ public class Inventory {
 
                     case "1": //adds needles
                         Console.Clear();                                        
-                        Console.WriteLine("What size are the needles? (US sizes)");
-                        double size = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("What size are the needles? (US sizes)");      
 
+                        string size = Console.ReadLine();
+                        while (!double.TryParse(size, out double result))
+                        {
+                            Console.WriteLine("Please enter a valid needle size (10, 10.5, etc)");            
+                            size = Console.ReadLine();                
+                        }
+                        
                         Console.WriteLine("What type of needles are they? (straight, ciruclar, etc)");
                         string type = Console.ReadLine();
 
                         Console.WriteLine("What material are they made from? (wood, metal, etc)");        
                         string material = Console.ReadLine();
 
-                        EditJson.WriteJson(size, type, material);
+                        EditJson.WriteJson(Convert.ToDouble(size), type, material);
                         return true;
+                        
                         
                     case "2": //addes yarn
                         Console.Clear();                    
@@ -156,9 +163,15 @@ public class Inventory {
                         string weight = Console.ReadLine();
 
                         Console.WriteLine("What is the length of the yarn? (in yards)");        
-                        double length = Convert.ToDouble(Console.ReadLine());
+                        
+                        string length = Console.ReadLine();
+                        while (!double.TryParse(length, out double result))
+                        {
+                            Console.WriteLine("Please enter a valid length in yards (10, 10.5, etc)");            
+                            length = Console.ReadLine();                
+                        }
 
-                        EditJson.WriteJson(color, weight, length);
+                        EditJson.WriteJson(color, weight, Convert.ToDouble(length));
                         return true;
 
                     case "0": //exit
@@ -212,17 +225,29 @@ public class Inventory {
 
                         if (EditJson.ReadJson(menuInput))
                         {
-                            Console.WriteLine("Please enter the id # of the yarn you wish to remove");   
+                            Console.WriteLine("Please enter the id # of the item you wish to remove");   
                             id = Console.ReadLine();
+
+                            while (!int.TryParse(id, out int result))
+                                {
+                                Console.WriteLine("Please enter a valid id # (1, 2, etc)");            
+                                id = Console.ReadLine();                
+                                }
 
                             Console.WriteLine("Are you sure? (y/n)");       
                             confirm = Console.ReadLine();
 
-                            if (confirm == "y")
+                            switch (confirm)
                             {
-                                EditJson.DeleteJson(menuInput, id);
-                            }     
-                            return true;
+                                case "y":
+                                    EditJson.DeleteJson(menuInput, id);
+                                    return true;
+                                case "n":
+                                    return true;
+                                default:
+                                    Console.WriteLine("That wasn't a valid input, aborting removal of items");                                    
+                                    return false;
+                            }
                         }
                         else
                         {

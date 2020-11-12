@@ -7,5 +7,9 @@ Enter "dotnet run" to run the application in Command Prompt or Powershell.
 Code Louisville features: 
 
 -Implement a “master loop” console application where the user can repeatedly enter commands/perform actions, including choosing to exit the program
+
 -Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program
+
 -Read data from an external file, such as text, JSON, CSV, etc and use that data in your application
+
+-Build a conversion tool that converts user input to another type and displays it (ex: converts cups to grams)

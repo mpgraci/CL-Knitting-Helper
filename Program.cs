@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace CL_Knitting
 {
@@ -6,6 +7,19 @@ namespace CL_Knitting
     {
         static void Main(string[] args)
         {
+
+            //checks if inventory file exists and creates it
+            string path = @"data\inventory.json";
+            if (!File.Exists(path))
+            {
+                using (var inv = new StreamWriter(path, true))
+                {
+                    inv.WriteLine("{\"needles\": [],  \"yarn\": []}");
+                }
+            }
+            
+
+            //introS
             Console.WriteLine(@"
             
             ***Welcome to Knitting Helper!***");

@@ -11,7 +11,7 @@ public class RootObject
 
 public class EditJson
 {
-    private static string jsonLocation = "data\\Inventory.json"; 
+    private static string jsonLocation = "data\\inventory.json"; //CHANGE THIS BEFORE PUSHING TO GITHUB
 
     public static bool ReadJson(string menuInput) 
     {        

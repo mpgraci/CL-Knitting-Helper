@@ -5,6 +5,9 @@ namespace CL_Knitting
 {
     class Program
     {
+        static Inventory Inv = new Inventory();
+        static CalcGauge Calc  = new CalcGauge();
+
         static void Main(string[] args)
         {
 
@@ -18,8 +21,7 @@ namespace CL_Knitting
                 }
             }
             
-
-            //introS
+            //intros
             Console.WriteLine(@"
             
             ***Welcome to Knitting Helper!***");
@@ -34,9 +36,7 @@ namespace CL_Knitting
 
         //menu
         private static bool MainMenu()
-        {
-            Inventory Inv = new Inventory();
-            CalcGauge Calc  = new CalcGauge();
+        {            
             
             //initial prompt
             Console.Clear();
@@ -76,7 +76,8 @@ namespace CL_Knitting
                     return false;
                 default:
                     Console.Clear();
-                    Console.WriteLine("That wasn't a 1, 2 ,3 or 0...");
+                    Console.WriteLine("Please enter 1, 2, 3, or 0 next time. Press any key to return to main menu");      
+                    Console.ReadKey();     
                     return true;
             }                        
         }

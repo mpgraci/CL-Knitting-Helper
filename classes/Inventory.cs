@@ -1,8 +1,17 @@
 ﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
+public class RootObject
+{
+    public List<Needles> needles { get; set; }
+    public List<Yarn> yarn { get; set; }
+}
 
 public class Inventory {
 
-    EditJson editjson = new EditJson();
+    private static string jsonLocation = "data\\inventory.json"; //CHANGE FROM TEST BEFORE COMMIT
 
     public void Display() {
 
@@ -37,7 +46,7 @@ public class Inventory {
                     case "1":
                     case "2": //displays item
                         Console.Clear();
-                        EditJson.ReadJson(menuInput);
+                        ReadJson(menuInput);
                         return true;
 
                     case "0": //exit
@@ -150,7 +159,7 @@ public class Inventory {
                         Console.WriteLine("What material are they made from? (wood, metal, etc)");        
                         string material = Console.ReadLine();
 
-                        EditJson.WriteJson(Convert.ToDouble(size), type, material);
+                        WriteJson(Convert.ToDouble(size), type, material);
                         return true;
                         
                         
@@ -171,7 +180,7 @@ public class Inventory {
                             length = Console.ReadLine();                
                         }
 
-                        EditJson.WriteJson(color, weight, Convert.ToDouble(length));
+                        WriteJson(color, weight, Convert.ToDouble(length));
                         return true;
 
                     case "0": //exit
@@ -223,7 +232,7 @@ public class Inventory {
                     case "2": //removes item
                         Console.Clear();                                                                
 
-                        if (EditJson.ReadJson(menuInput))
+                        if (ReadJson(menuInput))
                         {
                             Console.WriteLine("Please enter the id # of the item you wish to remove");   
                             id = Console.ReadLine();
@@ -240,7 +249,7 @@ public class Inventory {
                             switch (confirm)
                             {
                                 case "y":
-                                    EditJson.DeleteJson(menuInput, id);
+                                    DeleteJson(menuInput, id);
                                     return true;
                                 case "n":
                                     return true;
@@ -265,5 +274,161 @@ public class Inventory {
                 }          
             }        
         return;
+    }
+
+    //manipulates json file
+    public static bool ReadJson(string menuInput) 
+    {        
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));
+
+        if (json != null)
+        {
+            switch (menuInput){
+
+                case "1": //lists needles
+                    if (json.needles != null && json.needles.Count > 0)
+                    {
+                        foreach(var i in json.needles){                    
+
+                            foreach(var prop in i.GetType().GetProperties()) {
+                                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
+                            } 
+                            Console.WriteLine("\n");
+                        }      
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry! You don't have any needles in your inventory.");
+                        return false;
+                    } 
+
+                case "2": //lists yarn
+                    if (json.yarn != null && json.yarn.Count > 0)
+                    {
+                        foreach(var i in json.yarn)
+                        {
+                            foreach(var prop in i.GetType().GetProperties()) {
+                                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
+                            }                
+                            Console.WriteLine("\n");
+                        }        
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry! You don't have any yarn in your inventory.");
+                        return false;
+                    } 
+
+                default:
+                    Console.WriteLine("That's not a 1 or 2....");
+                    return false;
+            }        
+        }
+        else
+        {
+            Console.WriteLine("Sorry! You don't have anything in your inventory.");
+            return false;
+        }
+    }
+    
+    public static void WriteJson(double size, string type, string material)
+    {
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+        int highestID = 0;
+
+        foreach(var i in json.needles)
+        {
+            if (i.id > highestID) {
+                highestID = i.id;                
+            }
+            else {
+                break;
+            }     
+        }               
+        
+        json.needles.Add(new Needles()
+        {
+            id = highestID + 1,
+            size = size,
+            type = type,
+            material = material
+        });
+
+        string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+
+        File.WriteAllText(jsonLocation, json1);
+    }
+
+    public static void WriteJson(string color, string weight, double length)
+    {
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+        
+        int highestID = 0;
+        foreach(var i in json.yarn)
+        {
+            if (i.id > highestID) {
+                highestID = i.id;                
+            }                       
+        }
+
+        Yarn yarn = new Yarn{
+            id = highestID + 1,
+            color = color,
+            weight = weight,
+            length = length
+        };
+
+       json.yarn.Add(new Yarn()
+        {
+            id = highestID + 1,
+            color = color,
+            weight = weight,
+            length = length
+        });
+
+        string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+
+        File.WriteAllText(jsonLocation, json1);
+    }
+
+    public static void DeleteJson(string menuInput, string id)
+    {
+        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+        string json1 = "";
+
+        switch (menuInput) 
+        {
+            case "1":                
+                foreach (var i in json.needles)
+                {
+                    if (i.id ==  Convert.ToInt32(id))
+                    {
+                        json.needles.Remove(i);
+                        Console.WriteLine("Item Removed");
+                        break;
+                    }
+                }
+
+                json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+                File.WriteAllText(jsonLocation, json1);
+            return;                
+
+            case "2":                
+                foreach (var i in json.yarn)
+                {
+                    if (i.id ==  Convert.ToInt32(id))
+                    {
+                        json.yarn.Remove(i);
+                        Console.WriteLine("Item Removed");
+                        break;
+                    }
+                }
+
+                json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+                File.WriteAllText(jsonLocation, json1);
+                return;                
+        }        
     }
 }

@@ -13,3 +13,5 @@ Code Louisville features:
 -Read data from an external file, such as text, JSON, CSV, etc and use that data in your application
 
 -Build a conversion tool that converts user input to another type and displays it (ex: converts cups to grams)
+
+-Implement a log that records errors, invalid inputs, or other important events and writes them to a text file

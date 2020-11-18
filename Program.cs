@@ -11,7 +11,7 @@ namespace CL_Knitting
         static void Main(string[] args)
         {
 
-            //checks if inventory file exists and creates it
+            //checks if inv and log files exist and creates them if not
             string path = @"data\inventory.json";
             if (!File.Exists(path))
             {
@@ -20,6 +20,17 @@ namespace CL_Knitting
                     inv.WriteLine("{\"needles\": [],  \"yarn\": []}");
                 }
             }
+
+            string path1 = @"data\log.txt";
+            if (!File.Exists(path1))
+            {
+                using (var log = new StreamWriter(path1, true))
+                {
+                    log.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Log created");
+                }
+            }
+
+
             
             //intros
             Console.WriteLine(@"

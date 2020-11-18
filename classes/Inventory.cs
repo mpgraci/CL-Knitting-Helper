@@ -11,7 +11,8 @@ public class RootObject
 
 public class Inventory {
 
-    private static string jsonLocation = "data\\inventory.json"; //CHANGE FROM TEST BEFORE COMMIT
+    private static string jsonLocation = "data\\inventory.json"; 
+    private static string logLocation = "data\\log.txt";
 
     public void Display() {
 
@@ -280,7 +281,7 @@ public class Inventory {
     public static bool ReadJson(string menuInput) 
     {        
         var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));
-
+        
         if (json != null)
         {
             switch (menuInput){
@@ -323,6 +324,7 @@ public class Inventory {
 
                 default:
                     Console.WriteLine("That's not a 1 or 2....");
+                    
                     return false;
             }        
         }
@@ -357,8 +359,8 @@ public class Inventory {
         });
 
         string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-
         File.WriteAllText(jsonLocation, json1);
+        File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added Needles");
     }
 
     public static void WriteJson(string color, string weight, double length)
@@ -389,8 +391,8 @@ public class Inventory {
         });
 
         string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-
         File.WriteAllText(jsonLocation, json1);
+        File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added to Yarn");
     }
 
     public static void DeleteJson(string menuInput, string id)
@@ -413,6 +415,7 @@ public class Inventory {
 
                 json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
                 File.WriteAllText(jsonLocation, json1);
+                File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Needles");
             return;                
 
             case "2":                
@@ -428,6 +431,7 @@ public class Inventory {
 
                 json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
                 File.WriteAllText(jsonLocation, json1);
+                File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Yarn");
                 return;                
         }        
     }

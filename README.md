@@ -1,6 +1,6 @@
 # CL-Knitting-Helper
 
-Knitting Helper is a console app designed to aid knitters in keeping tack of inventory and doing guage calcualtions. Users can add, remove, and view an inventory of needles and yarn. Additionally, users can calculage the gauge for a project based on a common 4inch by 4inch swatch. 
+Knitting Helper is a console app designed to aid knitters in keeping tack of inventory and doing gauge calcualtions. Users can add, remove, and view an inventory of needles and yarn. Additionally, users can calculage the gauge for a project based on a common 4inch by 4inch swatch. 
 
 Enter "dotnet run" to run the application in Command Prompt or Powershell.
 

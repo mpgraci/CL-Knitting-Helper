@@ -32,7 +32,7 @@ public class Inventory {
                     ***INVENTORY MENU***
                 What would you like to view?:
                     
-                1 - Neeldes
+                1 - Needles
                 2 - Yarn 
                 0 - Go back
                 
@@ -131,7 +131,7 @@ public class Inventory {
                    ***ADD TO INVENTORY***
                 What would you like to add?:
                     
-                1 - Neeldes
+                1 - Needles
                 2 - Yarn 
                 0 - Go back
                 
@@ -280,159 +280,235 @@ public class Inventory {
     //manipulates json file
     public static bool ReadJson(string menuInput) 
     {        
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));
-        
-        if (json != null)
+        try 
         {
-            switch (menuInput){
+            var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));
+            
+            if (json != null)
+            {
+                switch (menuInput){
 
-                case "1": //lists needles
-                    if (json.needles != null && json.needles.Count > 0)
-                    {
-                        foreach(var i in json.needles){                    
-
-                            foreach(var prop in i.GetType().GetProperties()) {
-                                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
-                            } 
-                            Console.WriteLine("\n");
-                        }      
-                        return true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry! You don't have any needles in your inventory.");
-                        return false;
-                    } 
-
-                case "2": //lists yarn
-                    if (json.yarn != null && json.yarn.Count > 0)
-                    {
-                        foreach(var i in json.yarn)
+                    case "1": //lists needles
+                        if (json.needles != null && json.needles.Count > 0)
                         {
-                            foreach(var prop in i.GetType().GetProperties()) {
-                                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
-                            }                
-                            Console.WriteLine("\n");
-                        }        
-                        return true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry! You don't have any yarn in your inventory.");
-                        return false;
-                    } 
+                            foreach(var i in json.needles){                    
 
-                default:
-                    Console.WriteLine("That's not a 1 or 2....");
-                    
-                    return false;
-            }        
+                                foreach(var prop in i.GetType().GetProperties()) {
+                                    Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
+                                } 
+                                Console.WriteLine("\n");
+                            }      
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sorry! You don't have any needles in your inventory.");
+                            return false;
+                        } 
+
+                    case "2": //lists yarn
+                        if (json.yarn != null && json.yarn.Count > 0)
+                        {
+                            foreach(var i in json.yarn)
+                            {
+                                foreach(var prop in i.GetType().GetProperties()) {
+                                    Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(i, null));
+                                }                
+                                Console.WriteLine("\n");
+                            }        
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sorry! You don't have any yarn in your inventory.");
+                            return false;
+                        } 
+
+                    default:
+                        Console.WriteLine("That's not a 1 or 2....");
+                        
+                        return false;
+                }        
+            }
+            else
+            {
+                Console.WriteLine("Sorry! You don't have anything in your inventory.");
+                return false;
+            }
         }
-        else
+        catch (FileNotFoundException ex)    
         {
-            Console.WriteLine("Sorry! You don't have anything in your inventory.");
+            Console.WriteLine("FILE NOT FOUND: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": FILE NOT FOUND: " + ex);
+            return false;
+        }
+        catch (JsonException ex)    
+        {
+            Console.WriteLine("INVALID JSON: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": INVALID JSON: " + ex);
+            return false;
+        }
+        catch (Exception ex)    
+        {
+            Console.WriteLine("ERROR: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": ERROR: " + ex);
             return false;
         }
     }
     
     public static void WriteJson(double size, string type, string material)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
-        int highestID = 0;
-
-        foreach(var i in json.needles)
+        try 
         {
-            if (i.id > highestID) {
-                highestID = i.id;                
-            }
-            else {
-                break;
-            }     
-        }               
-        
-        json.needles.Add(new Needles()
-        {
-            id = highestID + 1,
-            size = size,
-            type = type,
-            material = material
-        });
+            var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+            
+            int highestID = 0;
 
-        string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-        File.WriteAllText(jsonLocation, json1);
-        File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added Needles");
+            foreach(var i in json.needles)
+            {
+                if (i.id > highestID) {
+                    highestID = i.id;                
+                }
+                else {
+                    break;
+                }     
+            }               
+            
+            json.needles.Add(new Needles()
+            {
+                id = highestID + 1,
+                size = size,
+                type = type,
+                material = material
+            });
+
+            string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+            File.WriteAllText(jsonLocation, json1);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added Needles");
+        }
+        catch (FileNotFoundException ex)    
+        {
+            Console.WriteLine("FILE NOT FOUND: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": FILE NOT FOUND: " + ex);
+        }
+        catch (JsonException ex)    
+        {
+            Console.WriteLine("INVALID JSON: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": INVALID JSON: " + ex);
+        }
+        catch (Exception ex)    
+        {
+            Console.WriteLine("ERROR: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": ERROR: " + ex);
+        }
     }
 
     public static void WriteJson(string color, string weight, double length)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
-        
-        int highestID = 0;
-        foreach(var i in json.yarn)
+        try
         {
-            if (i.id > highestID) {
-                highestID = i.id;                
-            }                       
+            var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+            
+            int highestID = 0;
+            foreach(var i in json.yarn)
+            {
+                if (i.id > highestID) {
+                    highestID = i.id;                
+                }                       
+            }
+
+            Yarn yarn = new Yarn{
+                id = highestID + 1,
+                color = color,
+                weight = weight,
+                length = length
+            };
+
+        json.yarn.Add(new Yarn()
+            {
+                id = highestID + 1,
+                color = color,
+                weight = weight,
+                length = length
+            });
+
+            string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+            File.WriteAllText(jsonLocation, json1);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added to Yarn");
         }
-
-        Yarn yarn = new Yarn{
-            id = highestID + 1,
-            color = color,
-            weight = weight,
-            length = length
-        };
-
-       json.yarn.Add(new Yarn()
+        catch (FileNotFoundException ex)    
         {
-            id = highestID + 1,
-            color = color,
-            weight = weight,
-            length = length
-        });
-
-        string json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-        File.WriteAllText(jsonLocation, json1);
-        File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item added to Yarn");
+            Console.WriteLine("FILE NOT FOUND: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": FILE NOT FOUND: " + ex);
+        }
+        catch (JsonException ex)    
+        {
+            Console.WriteLine("INVALID JSON: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": INVALID JSON: " + ex);
+        }
+        catch (Exception ex)    
+        {
+            Console.WriteLine("ERROR: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": ERROR: " + ex);
+        }
     }
 
     public static void DeleteJson(string menuInput, string id)
     {
-        var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
-        string json1 = "";
-
-        switch (menuInput) 
+        try 
         {
-            case "1":                
-                foreach (var i in json.needles)
-                {
-                    if (i.id ==  Convert.ToInt32(id))
+            var json = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(jsonLocation));        
+            string json1 = "";
+
+            switch (menuInput) 
+            {
+                case "1":                
+                    foreach (var i in json.needles)
                     {
-                        json.needles.Remove(i);
-                        Console.WriteLine("Item Removed");
-                        break;
+                        if (i.id ==  Convert.ToInt32(id))
+                        {
+                            json.needles.Remove(i);
+                            Console.WriteLine("Item Removed");
+                            break;
+                        }
                     }
-                }
 
-                json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-                File.WriteAllText(jsonLocation, json1);
-                File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Needles");
-            return;                
-
-            case "2":                
-                foreach (var i in json.yarn)
-                {
-                    if (i.id ==  Convert.ToInt32(id))
-                    {
-                        json.yarn.Remove(i);
-                        Console.WriteLine("Item Removed");
-                        break;
-                    }
-                }
-
-                json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
-                File.WriteAllText(jsonLocation, json1);
-                File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Yarn");
+                    json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+                    File.WriteAllText(jsonLocation, json1);
+                    File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Needles");
                 return;                
-        }        
+
+                case "2":                
+                    foreach (var i in json.yarn)
+                    {
+                        if (i.id ==  Convert.ToInt32(id))
+                        {
+                            json.yarn.Remove(i);
+                            Console.WriteLine("Item Removed");
+                            break;
+                        }
+                    }
+
+                    json1 = JsonConvert.SerializeObject(json, Formatting.Indented);
+                    File.WriteAllText(jsonLocation, json1);
+                    File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Item removed from Yarn");
+                    return;                
+            }        
+        }
+        catch (FileNotFoundException ex)    
+        {
+            Console.WriteLine("FILE NOT FOUND: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": FILE NOT FOUND: " + ex);
+        }
+        catch (JsonException ex)    
+        {
+            Console.WriteLine("INVALID JSON: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": INVALID JSON: " + ex);
+        }
+        catch (Exception ex)    
+        {
+            Console.WriteLine("ERROR: " + ex);
+            File.AppendAllText(logLocation, Environment.NewLine + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": ERROR: " + ex);
+        }
     }
 }

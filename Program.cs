@@ -10,27 +10,32 @@ namespace CL_Knitting
 
         static void Main(string[] args)
         {
-
-            //checks if inv and log files exist and creates them if not
-            string path = @"data\inventory.json";
-            if (!File.Exists(path))
-            {
-                using (var inv = new StreamWriter(path, true))
+            try 
+            {                
+                //checks if inv and log files exist and creates them if not
+                string path = @"data\inventory.json";
+                if (!File.Exists(path))
                 {
-                    inv.WriteLine("{\"needles\": [],  \"yarn\": []}");
+                    using (var inv = new StreamWriter(path, true))
+                    {
+                        inv.WriteLine("{\"needles\": [],  \"yarn\": []}");
+                    }
                 }
-            }
 
-            string path1 = @"data\log.txt";
-            if (!File.Exists(path1))
-            {
-                using (var log = new StreamWriter(path1, true))
+                string path1 = @"data\log.txt";
+                if (!File.Exists(path1))
                 {
-                    log.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Log created");
+                    using (var log = new StreamWriter(path1, true))
+                    {
+                        log.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ": Log created");
+                    }
                 }
+
+            }            
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex);
             }
-
-
             
             //intros
             Console.WriteLine(@"
